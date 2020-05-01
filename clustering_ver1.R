@@ -68,8 +68,17 @@ qplot(Petal.Length,
 
 # Can we exctract the different species into clusters using 2 attributes?
 
+my_data3 <- my_data[, c("Petal.Width", "Petal.Length")]
 
+num_clusters <- 3
+set.seed(1234)
+result <- kmeans(my_data3, num_clusters, nstart = 20)
 
-# Let's plot sepal length and petal width per cluster
+table(result$cluster, my_data$Species)
 
+# Let's plot sepal lenght and petal width per cluster
 
+qplot(Petal.Length,
+      Petal.Width,
+      data = my_data,
+      color = factor(result$cluster))
